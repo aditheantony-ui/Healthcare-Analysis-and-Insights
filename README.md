@@ -7,11 +7,11 @@ The healthcare industry generates vast amounts of data daily, providing valuable
 
 ## 2. Dataset Description
 
-The project uses three datasets obtained for the healthcare analysis.
+The project uses three datasets:
 
 ### 2.1 Medical Examinations
 
-Contains patient medical information, including:
+Contains patient medical information:
 
 - Customer ID
 - BMI
@@ -24,12 +24,13 @@ Contains patient medical information, including:
 
 ### 2.2 Hospitalization Details
 
-Contains hospitalization and patient-related information, including:
+Contains hospitalization-related information:
 
 - Customer ID
 - Year
 - Month
 - Date
+- Children
 - Charges
 - Hospital Tier
 - City Tier
@@ -37,13 +38,13 @@ Contains hospitalization and patient-related information, including:
 
 ### 2.3 Customer Names
 
-Contains customer identification and name information.
+Contains customer identification and the original Names column.
 
-### 2.4 Final Healthcare Dataset
+### 2.4 Final Consolidated Dataset
 
-The three datasets were consolidated into a single worksheet named `Healthcare`, using Customer ID as the common identifier.
+The three datasets were combined into a worksheet named `Healthcare`, using Customer ID as the common identifier.
 
-The final dataset contains 2,335 records and the following 17 columns:
+The final dataset contains **2,335 records and 17 columns**:
 
 1. Customer ID
 2. First Name
@@ -65,30 +66,30 @@ The final dataset contains 2,335 records and the following 17 columns:
 
 ## 3. Data Preprocessing
 
-Data preprocessing was performed to improve the quality, consistency, and reliability of the healthcare dataset.
+Data preprocessing was performed in Microsoft Excel to improve the quality, consistency, and reliability of the healthcare dataset.
 
 The preprocessing activities included:
 
 - Identifying missing values represented by `?`.
 - Handling missing Month and Year values.
 - Identifying the most frequently occurring values in Smoker, Hospital Tier, and City Tier.
-- Handling missing or invalid State ID values.
+- Inspecting and correcting invalid State ID entries.
 - Splitting customer names into Title, First Name, and Last Name.
 - Converting NumberOfMajorSurgeries into numerical data.
 - Checking inconsistencies in Heart Issues and Smoker.
 - Creating Weight Status categories based on BMI.
 - Creating Diabetes Status categories based on HBA1C.
 - Combining Year, Month, and Date into Date of Birth.
-- Calculating patient Age using 8 June 2023 as the reference date.
+- Calculating Age using 8 June 2023 as the reference date.
 - Formatting Charges as currency ($).
 
 ## 4. Exploratory Data Analysis
 
-Exploratory Data Analysis was conducted to identify patterns, distributions, and relationships within the healthcare dataset.
+Exploratory Data Analysis was performed using PivotTables, PivotCharts, doughnut charts, column charts, and scatter plots.
 
 ### 4.1 Cancer History Among Smokers and Non-Smokers
 
-Analyzed the distribution of cancer history among smokers and non-smokers using patient counts and a doughnut chart.
+Analyzed the distribution of cancer history among smokers and non-smokers using Customer ID counts and a doughnut chart.
 
 ### 4.2 Total Major Surgeries and Average HBA1C by Transplant History
 
@@ -100,94 +101,116 @@ Compared the total number of major surgeries and average HBA1C between patients 
 | Yes | 162 | 5.1876 |
 | Total | 1,579 | 6.5799 |
 
+A doughnut chart was used to present this analysis in the workbook.
+
 ### 4.3 Average Healthcare Charges by Weight Status and Diabetes Status
 
-Analyzed how average healthcare charges vary across different Weight Status and Diabetes Status categories using a column chart.
+Analyzed average healthcare charges across different Weight Status and Diabetes Status categories using a column chart.
 
 ### 4.4 Average Charges by Hospital Tier Within Different States
 
-Compared average healthcare charges for each Hospital Tier across different State IDs using a clustered column chart.
+Compared average healthcare charges across different Hospital Tiers within different State IDs using a clustered column chart.
 
 ### 4.5 Relationship Between Age and BMI
 
-Examined the relationship between patient Age and BMI using a scatter plot and linear trendline.
+Examined the relationship between Age and BMI using a scatter plot and linear trendline.
 
 - R-squared value: 0.0157
 
 ### 4.6 Relationship Between Age and HBA1C
 
-Examined the relationship between patient Age and HBA1C using a scatter plot and trendline.
+Examined the relationship between Age and HBA1C using a scatter plot and trendline.
 
 ### 4.7 Relationship Between Age and Healthcare Charges
 
-Analyzed the relationship between patient Age and healthcare Charges using a scatter plot and linear trendline.
+Examined the relationship between Age and Charges using a scatter plot and linear trendline.
 
 - R-squared value: 0.0211
 
-## 5. Project Execution Steps
+## 5. Project Execution Steps and Methods Used
 
-The project was carried out using Microsoft Excel. The following steps describe the operations performed to complete the assignment.
+The following procedures describe the actual work performed in the Excel workbooks.
 
 ### 5.1 Data Cleaning
 
-**Step 1: Identify Missing Values**
+**Step 1: Identifying Missing Values**
 
-- Opened the Medical Examinations table.
-- Checked every column for missing values represented by `?`.
-- Used COUNTIF to count missing values in each column.
+- Checked each column in the Medical Examinations table for missing values represented by `?`.
 - Repeated the process for the Hospitalization Details table.
-- Identified 17 missing values across the two datasets.
+- Used COUNTIF to count missing values in the individual columns.
+- Identified a total of 17 missing values across both tables.
 
-**Step 2: Handle Missing Month and Year Values**
+**Step 2: Handling Missing Month and Year**
 
-- Identified missing entries in the Month column.
 - Replaced missing Month values with `Sep`.
 - Calculated the average of the available Year values.
-- Rounded the average to the nearest integer.
-- Used the rounded average to fill missing Year entries.
+- Used ROUND to round the average to the nearest integer.
+- Filled missing Year values using the rounded average.
 
-**Step 3: Determine the Mode of Smoker, Hospital Tier, and City Tier**
+**Step 3: Finding the Most Frequently Occurring Values**
 
 - Examined the Smoker, Hospital Tier, and City Tier columns.
-- Created PivotTables to count the frequency of each distinct value.
-- Sorted the frequency counts in descending order.
-- Identified the most frequently occurring value (mode) for each column.
-- Used the identified modes to fill missing entries.
+- Used PivotTables and frequency counts to identify the most frequently occurring values.
+- Used the mode values to fill missing entries.
 - The mode for Smoker was `No`.
+- The mode used for Hospital Tier and City Tier was `tier - 2`.
 
-**Step 4: Handle Missing State ID Values**
+**Step 4: Cleaning State ID**
 
 - Applied filters to inspect the State ID column.
-- Checked for missing, invalid, and unusual entries.
-- Used COUNTIF, FILTER, ISNUMBER, and VALUE to inspect the values.
-- Replaced identified invalid State ID entries with `Unknown`.
+- Used FILTER with ISNUMBER and VALUE to identify numeric-looking entries.
+- Used COUNTIF to check the occurrence of `1983`.
+- Identified two incorrect occurrences of `1983`.
+- Replaced these entries with `Unknown`.
+
+**Step 5: Inspecting Hospital Tier and City Tier**
+
+- Applied Excel filters and Number Filters to inspect unusual numeric or year-like values.
+- Used COUNTIF to check the frequency of unusual entries.
+- Verified the values before applying the mode for missing entries.
 
 ### 5.2 Data Transformation
 
-**Step 5: Split the Customer Names Column**
+**Step 6: Splitting Customer Names**
 
-- Opened the Customer Names table.
-- Selected the Names column.
-- Used Data → Text to Columns in Excel.
-- Split the names into three columns: Title, First Name, and Last Name.
-- Retained First Name for the final consolidated dataset.
+Used Excel formulas to separate the original Names column into Title, First Name, and Last Name.
 
-**Step 6: Convert NumberOfMajorSurgeries into Numerical Data**
+**Title:**
+
+```excel
+=TRIM(MID(B2,FIND(",",B2)+1,FIND(" ",TRIM(MID(B2,FIND(",",B2)+1,99))&" ")-1))
+```
+
+**First Name:**
+
+```excel
+=TRIM(LEFT(TRIM(MID(SUBSTITUTE(B2,CHAR(160)," "),FIND(".",SUBSTITUTE(B2,CHAR(160)," "))+1,99)),FIND(" ",TRIM(MID(SUBSTITUTE(B2,CHAR(160)," "),FIND(".",SUBSTITUTE(B2,CHAR(160)," "))+1,99))&" ")-1))
+```
+
+**Last Name:**
+
+```excel
+=TRIM(LEFT(SUBSTITUTE(B2,CHAR(160)," "),FIND(",",SUBSTITUTE(B2,CHAR(160)," "))-1))
+```
+
+First Name was retained in the final Healthcare dataset.
+
+**Step 7: Converting NumberOfMajorSurgeries**
 
 - Inspected the NumberOfMajorSurgeries column.
-- Identified non-numeric characters and representations.
-- Replaced non-numeric representations with their corresponding meaningful numerical values.
-- Ensured the column contained numerical data suitable for calculations.
+- Identified non-numeric representations.
+- Replaced non-numeric representations with meaningful numerical values.
+- Prepared the column for numerical analysis.
 
-**Step 7: Check Inconsistencies in Heart Issues and Smoker**
+**Step 8: Checking Inconsistencies**
 
-- Applied filters to inspect the Heart Issues and Smoker columns.
-- Checked for inconsistent labels and capitalization.
-- Standardized equivalent categorical values.
+- Inspected Heart Issues and Smoker using Excel filters.
+- Checked inconsistent categorical entries and capitalization.
+- Standardized equivalent values.
 
-**Step 8: Create Weight Status**
+**Step 9: Creating Weight Status**
 
-Created a new column named `Weight Status` based on BMI:
+Created a new column named `Weight Status` using BMI:
 
 | BMI | Weight Status |
 |---|---|
@@ -196,9 +219,15 @@ Created a new column named `Weight Status` based on BMI:
 | 25.0–29.9 | Overweight |
 | 30.0 and Above | Obesity |
 
-**Step 9: Create Diabetes Status**
+Formula used in the Medical Examinations worksheet:
 
-Created a new column named `Diabetes Status` based on HBA1C:
+```excel
+=IF(B2<18.5,"Underweight",IF(B2<25,"Normal Weight",IF(B2<30,"Overweight","Obesity")))
+```
+
+**Step 10: Creating Diabetes Status**
+
+Created a new column named `Diabetes Status` using HBA1C:
 
 | HBA1C | Diabetes Status |
 |---|---|
@@ -206,235 +235,273 @@ Created a new column named `Diabetes Status` based on HBA1C:
 | 5.7–6.4 | Prediabetes |
 | 6.5 and Above | Diabetes |
 
-**Step 10: Create Date of Birth**
+Formula used in the Medical Examinations worksheet:
 
-- Combined Year, Month, and Date from the Hospitalization Details table.
-- Created a new column named Date of Birth.
-- Applied the custom date format `DD-MMM-YYYY`.
+```excel
+=IF(C2<5.7,"Normal",IF(C2<6.5,"Prediabetes","Diabetes"))
+```
 
-**Step 11: Calculate Age**
+**Step 11: Creating Date of Birth**
 
-- Used 8 June 2023 as the dataset collection date.
-- Calculated the age of each customer using Date of Birth.
+Combined Year, Month, and Date using DATE, MATCH, and TEXT.
 
-**Step 12: Format Charges**
+Formula used in the Hospitalization Details worksheet:
 
-- Selected the Charges column.
-- Applied currency formatting using the dollar ($) symbol.
+```excel
+=TEXT(DATE(B2,MATCH(C2,{"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"},0),D2),"dd-mmm-yyyy")
+```
+
+The resulting date was formatted as `DD-MMM-YYYY`.
+
+**Step 12: Calculating Age**
+
+Calculated each customer's age using 8 June 2023 as the reference date.
+
+Formula used:
+
+```excel
+=DATEDIF(J2,DATE(2023,6,8),"Y")
+```
+
+**Step 13: Formatting Charges**
+
+Applied dollar currency formatting to the Charges column.
 
 ### 5.3 Data Integration Using VLOOKUP
 
-**Step 13: Create the Healthcare Worksheet**
+**Step 14: Creating the Healthcare Worksheet**
 
-- Created a new worksheet named `Healthcare`.
-- Used Customer ID as the common column across all three datasets.
-- Used VLOOKUP to retrieve the required information from Medical Examinations, Hospitalization Details, and Customer Names.
-- Combined the retrieved information into one consolidated worksheet.
-- Retained all 17 columns specified in the assignment.
-- Verified the final dataset containing 2,335 records.
+- Created a worksheet named `Healthcare`.
+- Used Customer ID as the common identifier.
+- Retrieved First Name from Customer Names.
+- Retrieved medical information from Medical Examinations.
+- Retrieved hospitalization information from Hospitalization Details.
+- Used exact-match VLOOKUP formulas with `FALSE`.
+- Consolidated the required fields into 17 columns and 2,335 records.
 
-### 5.4 Data Analysis and Visualization
-
-**Step 14: Cancer History Among Smokers and Non-Smokers**
-
-- Created a PivotTable using Smoker and Cancer History.
-- Added Customer ID to the Values area.
-- Set the calculation to Count.
-- Inserted a doughnut chart to visualize the distribution.
-
-**Step 15: Major Surgeries and HBA1C by Transplant History**
-
-- Created a PivotTable using Any Transplants.
-- Added NumberOfMajorSurgeries to Values and selected Sum.
-- Added HBA1C to Values and selected Average.
-- Inserted a chart to compare patients with and without transplant history.
-
-**Step 16: Average Charges by Weight Status and Diabetes Status**
-
-- Created a PivotTable.
-- Added Weight Status and Diabetes Status as categories.
-- Added Charges to Values.
-- Changed the summary calculation to Average.
-- Inserted a column chart.
-
-**Step 17: Average Charges by Hospital Tier Within State**
-
-- Created a PivotTable.
-- Added State ID and Hospital Tier as categories.
-- Added Charges to Values.
-- Changed the summary calculation to Average.
-- Inserted a clustered column chart.
-
-**Step 18: Age vs BMI**
-
-- Selected Age as the X-axis and BMI as the Y-axis.
-- Inserted a scatter plot.
-- Added a linear trendline.
-- Displayed the R-squared value.
-
-**Step 19: Age vs HBA1C**
-
-- Selected Age as the X-axis and HBA1C as the Y-axis.
-- Inserted a scatter plot.
-- Added a trendline to examine the relationship.
-
-**Step 20: Age vs Healthcare Charges**
-
-- Selected Age as the X-axis and Charges as the Y-axis.
-- Inserted a scatter plot.
-- Added a linear trendline.
-- Displayed the R-squared value.
-
-### 5.5 Dashboard Creation
-
-**Step 21: Create the Healthcare Dashboard Worksheet**
-
-- Created a new worksheet named `Healthcare Dashboard`.
-- Moved the dashboard worksheet to the first position.
-- Added the dashboard title: `HEALTHCARE ANALYTICS DASHBOARD`.
-- Added the subtitle: `Patient Demographics, Medical Conditions & Healthcare Cost Analysis`.
-
-**Step 22: Add Charts and KPI Cards**
-
-- Copied the analysis charts into the dashboard worksheet.
-- Arranged the charts for clear presentation.
-- Created a Total Patients KPI card.
-- Displayed the total patient count of 2,335.
-
-**Step 23: Add Interactive Slicers**
-
-- Inserted a slicer for Weight Status.
-- Inserted a slicer for Diabetes Status.
-- Connected the slicers to compatible PivotTables and PivotCharts.
-- Tested the slicers to verify interactive filtering.
-
-## 6. Excel Formulas and Methods Used
-
-The following Excel formulas and methods were used during data cleaning, transformation, integration, and analysis.
-
-### 6.1 Missing Value Count
-
-Used COUNTIF to count cells containing the literal `?` character.
+**First Name – Customer Names**
 
 ```excel
-=COUNTIF(A2:A2336,"~?")
+=VLOOKUP($A2,'Customer Names'!$A:$E,4,FALSE)
 ```
 
-The range should be adjusted to the relevant column in each source table.
+**Medical Examination Fields**
 
-### 6.2 Average Year Rounded to the Nearest Integer
+The following VLOOKUP formulas were used to retrieve the medical information:
 
-```excel
-=ROUND(AVERAGE(A2:A2336),0)
-```
-
-The range should refer to the available Year values.
-
-### 6.3 Weight Status
-
-```excel
-=IF(C2<18.5,"Underweight",IF(C2<25,"Normal Weight",IF(C2<30,"Overweight","Obesity")))
-```
-
-### 6.4 Diabetes Status
-
-```excel
-=IF(D2<5.7,"Normal",IF(D2<6.5,"Prediabetes","Diabetes"))
-```
-
-### 6.5 Date of Birth
-
-The DATE function can combine the Year, Month, and Date values. For a month stored as text such as `Sep`, use:
-
-```excel
-=DATE(A2,MONTH(1&B2),C2)
-```
-
-Here, A2 represents Year, B2 represents Month, and C2 represents Date. Apply the `DD-MMM-YYYY` number format.
-
-### 6.6 Age Calculation
-
-```excel
-=DATEDIF(L2,DATE(2023,6,8),"Y")
-```
-
-### 6.7 VLOOKUP for Dataset Integration
-
-Example: Retrieving BMI from the Medical Examinations table using Customer ID.
+**BMI:**
 
 ```excel
 =VLOOKUP($A2,'Medical Examinations'!$A:$J,2,FALSE)
 ```
 
-- `$A2` is the Customer ID in the Healthcare worksheet.
-- `'Medical Examinations'!$A:$J` is the source lookup range.
-- `2` is the column index for BMI in this example.
-- `FALSE` ensures an exact match.
-
-The column index must be changed according to the field being retrieved. The same VLOOKUP approach was used to retrieve the required fields from the other source tables.
-
-### 6.8 Total Patient Count
+**HBA1C:**
 
 ```excel
-=COUNTA(Healthcare!A2:A2336)
+=VLOOKUP($A2,'Medical Examinations'!$A:$J,3,FALSE)
 ```
 
-### 6.9 Heart Issue Patient Count
+**Heart Issues:**
 
 ```excel
-=COUNTIF(Healthcare!E2:E2336,"Yes")
+=VLOOKUP($A2,'Medical Examinations'!$A:$J,4,FALSE)
 ```
 
-### 6.10 Cancer Case Count
+**Any Transplants:**
 
 ```excel
-=COUNTIF(Healthcare!G2:G2336,"Yes")
+=VLOOKUP($A2,'Medical Examinations'!$A:$J,5,FALSE)
 ```
 
-### 6.11 Total Major Surgeries
+**Cancer History:**
 
 ```excel
-=SUM(Healthcare!H2:H2336)
+=VLOOKUP($A2,'Medical Examinations'!$A:$J,6,FALSE)
 ```
 
-### 6.12 Additional Excel Functions and Methods
+**NumberOfMajorSurgeries:**
 
-| Function / Method | Purpose |
+```excel
+=VLOOKUP($A2,'Medical Examinations'!$A:$J,7,FALSE)
+```
+
+**Smoker:**
+
+```excel
+=VLOOKUP($A2,'Medical Examinations'!$A:$J,8,FALSE)
+```
+
+**Weight Status:**
+
+```excel
+=VLOOKUP($A2,'Medical Examinations'!$A:$J,9,FALSE)
+```
+
+**Diabetes Status:**
+
+```excel
+=VLOOKUP($A2,'Medical Examinations'!$A:$J,10,FALSE)
+```
+
+**Date of Birth – Hospitalization Details**
+
+```excel
+=VLOOKUP($A2,'Hospitalisation Details'!$A:$K,10,FALSE)
+```
+
+**Charges – Hospitalization Details**
+
+```excel
+=VLOOKUP("Id"&(2336-ROWS($M$2:M2)),'Hospitalisation Details'!$A:$K,6,FALSE)
+```
+
+**Hospital Tier:**
+
+```excel
+=VLOOKUP("Id"&(2336-ROWS($N$2:N2)),'Hospitalisation Details'!$A:$K,7,FALSE)
+```
+
+**City Tier:**
+
+```excel
+=VLOOKUP("Id"&(2336-ROWS($O$2:O2)),'Hospitalisation Details'!$A:$K,8,FALSE)
+```
+
+**State ID:**
+
+```excel
+=VLOOKUP("Id"&(2336-ROWS($P$2:P2)),'Hospitalisation Details'!$A:$K,9,FALSE)
+```
+
+**Age:**
+
+```excel
+=VLOOKUP("Id"&(2336-ROWS($Q$2:Q2)),'Hospitalisation Details'!$A:$K,11,FALSE)
+```
+
+The ROWS-based lookup formulas were used for hospitalization fields to generate the required Customer ID lookup sequence.
+
+### 5.4 PivotTables and Charts
+
+**Step 15: Cancer History Among Smokers and Non-Smokers**
+
+- Created a PivotTable using Smoker and Cancer History.
+- Added Customer ID to Values and selected Count.
+- Compared cancer history across smoker categories.
+- Created a doughnut chart.
+
+**Step 16: Total Major Surgeries and Average HBA1C by Transplant History**
+
+- Created a PivotTable using Any Transplants.
+- Added NumberOfMajorSurgeries to Values and selected Sum.
+- Added HBA1C to Values and selected Average.
+- Created a doughnut chart to present the comparison.
+
+**Step 17: Average Charges by Weight Status and Diabetes Status**
+
+- Created a PivotTable.
+- Grouped data by Weight Status and Diabetes Status.
+- Added Charges to Values.
+- Changed the calculation to Average.
+- Created a column chart.
+
+**Step 18: Average Charges by Hospital Tier Across States**
+
+- Created a PivotTable.
+- Grouped data by State ID and Hospital Tier.
+- Added Charges to Values.
+- Changed the calculation to Average.
+- Created a clustered column chart.
+
+**Step 19: Age Correlation Analysis**
+
+Created three separate scatter plots:
+
+1. Age vs BMI
+2. Age vs HBA1C
+3. Age vs Healthcare Charges
+
+For each scatter plot:
+
+- Selected Age as the X-axis.
+- Selected the corresponding numerical variable as the Y-axis.
+- Inserted a scatter chart.
+- Added a linear trendline.
+- Displayed the R-squared value where configured.
+
+### 5.5 Interactive Dashboard Creation
+
+**Step 20: Creating the Dashboard Worksheet**
+
+- Created a worksheet named `Healthcare Dashboard`.
+- Moved it to the first worksheet position.
+- Added the title `HEALTHCARE ANALYTICS DASHBOARD`.
+- Added the subtitle `Patient Demographics, Medical Conditions & Healthcare Cost Analysis`.
+
+**Step 21: Adding Charts and KPI Cards**
+
+- Copied the analysis charts into the dashboard.
+- Arranged the charts for clear presentation.
+- Created a Total Patients KPI card.
+- Displayed the total patient count of 2,335.
+
+**Step 22: Adding Interactive Slicers**
+
+- Inserted a Weight Status slicer.
+- Inserted a Diabetes Status slicer.
+- Opened Report Connections.
+- Connected the slicers to compatible PivotTables, including Healthcare Charges and Total Major Surgeries.
+- Tested the slicers to confirm interactive filtering.
+
+## 6. Excel Formulas and Functions Reference
+
+The following functions and methods were used throughout the project.
+
+| Formula / Function / Method | Application |
 |---|---|
-| COUNTIF | Counted missing values and records matching conditions |
-| AVERAGE | Calculated average Year, Charges, and HBA1C |
+| COUNTIF | Counted missing values and checked the frequency of State ID entries |
+| AVERAGE | Calculated average Year and other numerical measures |
 | ROUND | Rounded the average Year |
+| TRIM | Removed unnecessary spaces from customer names |
+| MID | Extracted text from customer names |
+| FIND | Located commas, spaces, and periods in names |
+| LEFT | Extracted first and last names |
+| SUBSTITUTE | Replaced non-breaking spaces |
+| CHAR | Identified non-breaking spaces using CHAR(160) |
 | IF | Created Weight Status and Diabetes Status categories |
-| DATE | Combined date components |
+| TEXT | Formatted the combined Date of Birth |
+| DATE | Combined Year, Month, and Date |
+| MATCH | Converted month abbreviations into month numbers |
 | DATEDIF | Calculated patient age |
-| VLOOKUP | Integrated the three datasets using Customer ID |
-| FILTER | Inspected and filtered State ID values |
-| ISNUMBER | Checked whether values were numeric |
+| VLOOKUP | Integrated information from all three source datasets |
+| ROWS | Generated the hospitalization Customer ID lookup sequence |
+| FILTER | Inspected numeric-looking State ID entries |
+| ISNUMBER | Checked numeric values |
 | VALUE | Converted numeric text into numbers |
-| COUNTA | Counted patient records |
 | SUM | Calculated total major surgeries |
-| PivotTables | Summarized data and identified frequently occurring values |
-| Sorting | Ranked category frequencies |
-| Excel Filters | Inspected missing, inconsistent, and unusual values |
-| Text to Columns | Split customer names |
-| PivotCharts | Visualized analytical results |
-| Doughnut Charts | Compared cancer history distributions |
+| COUNTA | Counted patient records |
+| PivotTables | Summarized healthcare data and identified frequent values |
+| Sorting and Filtering | Inspected missing, inconsistent, and unusual entries |
+| Text to Columns | Separated customer names |
+| Doughnut Charts | Visualized cancer history and transplant analysis |
 | Column Charts | Compared healthcare charges |
 | Clustered Column Charts | Compared hospital tiers across states |
-| Scatter Plots | Examined relationships between numerical variables |
+| Scatter Plots | Examined relationships between Age and other numerical variables |
 | Trendlines | Examined overall data patterns |
+| R-squared | Evaluated the linear relationship shown by scatter plots |
 | Slicers | Enabled interactive dashboard filtering |
 
-### Tools and Technologies
+### Tools Used
 
 - Microsoft Excel
 - Excel Formulas and Functions
 - VLOOKUP
 - PivotTables and PivotCharts
 - Excel Filters and Sorting
-- Text to Columns
+- Text Extraction Functions
+- Doughnut Charts
+- Column Charts
+- Clustered Column Charts
+- Scatter Plots and Trendlines
 - Interactive Slicers
-- Data Cleaning and Preprocessing
-- Exploratory Data Analysis
-- Data Visualization
 - Dashboard Development
